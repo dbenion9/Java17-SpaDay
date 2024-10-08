@@ -1,15 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th = "http://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>Spa Menu</title>
-    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
+    <link href="/static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 <body>
-<h1>My Super Fancy Spa</h1>
-<div id = "clientProfile">
-</div>
-<div id = "servicesMenu">
+<div style="border: 6px solid pink; padding: 20px; max-width: 600px; margin: 0 auto; text-align: center;">
+    <h1 style="text-align: center;">My Super Fancy Spa</h1>
+
+    <div id="clientProfile" style="text-align: center; margin-top: 20px;">
+        <h2>My Profile</h2>
+        <p>Name: <span th:text="${name}"></span></p>
+        <p>Skin Type: <span th:text="${skintype}"></span></p>
+        <p>Manicure or Pedicure: <span th:text="${manipedi}"></span></p>
+    </div>
+
+    <div id="servicesMenu" style="text-align: center; margin-top: 30px;">
+        <h2>Menu of Available Services</h2>
+        <h3>Facial Treatments</h3>
+        <p>The facial treatments below are recommended by our estheticians for your given skin type.</p>
+        <ul style="list-style-type: none; padding: 0;">
+            <th:block th:each="treatment : ${appropriateFacials}">
+                <li th:text="${treatment}" style="margin-bottom: 5px;"></li>
+            </th:block>
+        </ul>
+
+        <div th:if="${manipedi == 'manicure'}">
+            <h3>Manicure</h3>
+            <th:block th:replace="fragments :: manicureDescription"></th:block>
+        </div>
+
+        <div th:if="${manipedi == 'pedicure'}">
+            <h3>Pedicure</h3>
+            <th:block th:replace="fragments :: pedicureDescription"></th:block>
+        </div>
+    </div>
 </div>
 </body>
 </html>
+
+
+
